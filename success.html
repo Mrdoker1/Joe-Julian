@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Successful payment</title>
+    <meta name="description" content="Stripe successful payment page" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="./src/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+<div class="background">
+    <img class="back-static" id="back1" src="./src/img/back_1.png">
+    <img class="back-static" id="back2" src="./src/img/back_2.png">
+    <img class="back-moveable" id="backMoveable1" src="./src/img/moveable_1.png">
+    <img class="back-moveable" id="backMoveable2" src="./src/img/moveable_2.png" >
+</div>
+<div class="content" id="content">
+    <a class="logo ">
+        <img class="full" src="src/img/logo.svg">
+    </a>
+    <article class="" id="q106">
+                    <span class="form-headline poppins t-center mrg-t-h f-bold">
+                        DEAR <span id="user-name" class="color-10">YOU</span><br>
+                        Your payment is <span class="color-10">SUCCESSFUL</span>
+                    </span>
+
+        <div id="discount-timer" class="form-min mrg-t-h box-shadow-1">
+            <span class="montserrat f-normal form-text color-5 t-center mrg-t-s">Session ID:<br><span id="session" style="font-size: 8px">XXX</span></span>
+        </div>
+    </article>
+</div>
+
+<script>
+    var PUBLISHABLE_KEY = "pk_test_51HQKF0DuHXZBbKcCXGyieUGRTqVhM4s7is1RKejziFpK3klRewzpknj9ma3erlArkOu79jYpKYZaGruJoyKguorv00sCn9S7Vc";
+
+    if(localStorage && localStorage.getItem("user-name"))
+        document.getElementById("user-name").innerHTML = localStorage.getItem("user-name").toUpperCase();
+
+    if(localStorage){
+        let data = JSON.parse(localStorage.getItem("data"));
+        console.log(data);
+        //there can be POST request
+    }
+
+    var stripe = Stripe(PUBLISHABLE_KEY);
+    var urlParams = new URLSearchParams(window.location.search);
+
+    if (urlParams.has("session_id")) {
+        document.getElementById("session").textContent = urlParams.get(
+            "session_id"
+        );
+    }
+</script>
+</body>
+</html>

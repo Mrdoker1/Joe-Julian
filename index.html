@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" href="./src/css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+        <script defer src="./src/script/script.js"></script>
+        <script src="https://js.stripe.com/v3/"></script>
+    </head>
+    <body onload="load()">
+        <div class="background">
+            <img class="back-static" id="back1" src="./src/img/back_1.png">
+            <img class="back-static" id="back2" src="./src/img/back_2.png">
+            <img class="back-moveable" id="backMoveable1" src="./src/img/moveable_1.png">
+            <img class="back-moveable" id="backMoveable2" src="./src/img/moveable_2.png" >
+        </div>
+        <div class="content" id="content">
+            <a class="logo ">
+                <img class="full" src="src/img/logo.svg">
+            </a>
+            <article class="mrg-t-c" id="q100">
+                <h1 class="main-title poppins t-center f-bold">Find out how much weight<br>you'll lose with our</h1>
+                <p class="main-title poppins t-center mrg-t-l f-light italic">Easy <span class="color-1">Keto Meal Plan</span></p>
+                <span class="main-sub-title montserrat t-center mrg-t-h f-bold color-2 arrow-down">SELECT YOUR GENDER</span>
+                <div class="gender-choose mrg-t-h">
+                    <button value="0" class="gender-icon female">
+                    <div class="gender-background"></div>
+                    <div class="gender-background"></div>
+                    <div class="gender-background"></div>
+                    <div class="gender">
+                        <img src="./src/img/female-icon.svg">
+                        <span>Female</span>
+                    </div>
+                </button>
+                    <button value="1" class="gender-icon male">
+                        <div class="gender-background"></div>
+                        <div class="gender-background"></div>
+                        <div class="gender-background"></div>
+                        <div class="gender">
+                            <img src="./src/img/male-icon.svg">
+                            <span>Male</span>
+                        </div>
+                    </button>
+                </div>
+            </article>
+
+            <!--First Q1: What's your level of daily activity?-->
+
+            <!--First Q6: Height & Age-->
+            <article class="hidden"  id="q101">
+                <span class="title poppins t-center mrg-t-h f-bold">What's your height and age?</span>
+                <div class="form box-shadow-1 mrg-t-h">
+                    <input type="radio" id="radio-us" name="measurement-system" value="0" checked>
+                    <input type="radio" id="radio-metric" name="measurement-system" value="1">
+                    <div class="switcher montserrat f-semibold t-center">
+                        <label id="label-radio-us" for="radio-us">U.S.</label>
+                        <label id="label-radio-metric" for="radio-metric">Metric</label>
+                    </div>
+                    <div class="tabs montserrat f-semibold color-5">
+                        <div class="tab mrg-t-h" id="metric-tab">
+                            <div class="input-field">
+                                <label for="metric-input-height">Height (cm)</label>
+                                <input type="number-" id="metric-input-height" value="" class="f-normal montserrat color-0 mrg-t-l" placeholder="b/w 106 and 238" digit="3" max="238" min="106" required pattern="[0-9]{3}">
+                            </div>
+                        </div>
+                        <div class="tab mrg-t-h" id="us-tab">
+                            <div class="divided-input">
+                                <div class="input-field">
+                                    <label for="us-input-height-ft">Height (ft)</label>
+                                    <input type="number" id="us-input-height-ft" value="" class="f-normal montserrat color-0 mrg-t-l" placeholder="b/w 3 and 7" digit="2" max="7" min="3" required pattern="(^3$|^4$|^5$|^6$|^7$)">
+                                </div>
+                                <div class="input-field">
+                                    <label for="us-input-height-in">Height (inch)</label>
+                                    <input type="number" id="us-input-height-in" value="" class="f-normal montserrat color-0 mrg-t-l" placeholder="inch" digit="2" max="12" min="0" required pattern="[a-z]{1,2}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="montserrat f-semibold color-5 input-field mrg-t-l">
+                        <label for="input-age">Age</label>
+                        <input type="number" id="input-age" value="" class="f-normal montserrat color-0 mrg-t-l" placeholder="b/w 18 and 90"  digit="2" max="90" min="18" required pattern="[0-9]{2}">
+                    </div>
+                    <!--span class="warning mrg-t-m">Please enter between 90lbs and 500lbs for your goal weight.</span-->
+                </div>
+            </article>
+
+            <!--First Q7: Goal Weight-->
+            <article class="hidden" id="q102">
+                <span class="title poppins t-center mrg-t-h f-bold">What's your weight loss goal?</span>
+                <div class="form box-shadow-1 mrg-t-h montserrat f-semibold color-5">
+                    <div id="weight-kg" class="column full">
+                        <div class="input-field">
+                            <label for="weight-kg-current">Current (kg)</label>
+                            <input type="number" id="weight-kg-current" value="" class="f-normal montserrat color-0 mrg-t-l" placeholder="b/w 40kg and 385kg"  digit="3" min="40" max="385" required pattern="[0-9]{2,3}">
+                        </div>
+                        <div class="input-field mrg-t-l">
+                            <label for="weight-kg-goal">Goal Weight (kg)</label>
+                            <input type="number" id="weight-kg-goal" value="" class="f-normal montserrat color-0 mrg-t-l" placeholder="b/w 40kg and 227kg"  digit="3" min="40" max="227" required pattern="[0-9]{2,3}">
+                        </div>
+                    </div>
+                    <div id="weight-lbs" class="column full">
+                        <div class="input-field">
+                            <label for="weight-lbs-current">Current (lbs)</label>
+                            <input type="number" id="weight-lbs-current" value="" class="f-normal montserrat color-0 mrg-t-l" placeholder="b/w 90lbs and 850lbs"  digit="3" min="90" max="850" required pattern="[0-9]{2,3}">
+                        </div>
+                        <div class="input-field mrg-t-l">
+                            <label for="weight-lbs-goal">Goal Weight (lbs)</label>
+                            <input type="number" id="weight-lbs-goal" value="" class="f-normal montserrat color-0 mrg-t-l" placeholder="b/w 90lbs and 500lbs"  digit="3" min="90" max="350" required pattern="[0-9]{2,3}">
+                        </div>
+                    </div>
+                    <!--span class="warning mrg-t-m">Please enter between 90lbs and 500lbs for your goal weight.</span-->
+                </div>
+            </article>
+
+            <!--First Q8: What's your weight loss goal?-->
+            <article class="hidden" id="q103">
+                <span class="title poppins t-center mrg-t-h f-bold">What's your weight loss goal?</span>
+                <div class="form box-shadow-1 mrg-t-h montserrat f-semibold color-5">
+                    <div class="spinner-container">
+                        <div class="spinner" id="spinner">
+                            <div class="left">
+                                <div class="rotate"></div>
+                            </div>
+                            <div class="right">
+                                <div class="rotate"></div>
+                            </div>
+                        </div>
+                        <div class="spinner-title">
+                            <span id="spinner-status"></span>
+                        </div>
+                    </div>
+
+                    <ul id="goal-list" class="goal-list mrg-t-m color-5">
+                        <li>Identify Dietary Profile...</li>
+                        <li>Analyzing Root Cause Factors...</li>
+                        <li>Foods To help Eliminate Fatugue...</li>
+                        <li>Foods For Metabolism Repair...</li>
+                        <li>Foods That Increase Energy...</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!--First Q9: Email enter-->
+            <article class="hidden" id="q104">
+                <span class="title poppins t-center mrg-t-h f-bold">How much weigh you can lose for good?</span>
+                <span class="sub-title poppins f-light mrg-t-m color-10">Enter your email & Find Out</span>
+                <div class="form box-shadow-1 mrg-t-m montserrat f-semibold color-5">
+                    <div class="input-field">
+                        <label for="name-input">Your Name</label>
+                        <input type="text" id="name-input" value="" class="f-normal montserrat color-0 mrg-t-l" placeholder="Enter Your Name..." required pattern="[\w\s]*">
+                    </div>
+                    <div class="input-field mrg-t-l">
+                        <label for="email-input">Your Email</label>
+                        <input type="email" id="email-input" value="" class="f-normal montserrat color-0 mrg-t-l" placeholder="Enter your email address here..." required>
+                    </div>
+                    <button class="next-button montserrat f-bold color-3 mrg-t-h">Next</button>
+                </div>
+            </article>
+            
+            <!--First Q10: Final result-->
+            <article class="hidden" id="q105">
+                <span class="title poppins t-center mrg-t-h f-bold">Hello <span id="hello-message"></span>,<br> your results are In!</span>
+                <span class="sub-title poppins f-light mrg-t-m color-10">PROFILE SUMMARY</span>
+                
+                <div class="form box-shadow-1 mrg-t-m montserrat f-semibold color-5">
+                    <span class="form-title montserrat f-semibold t-center color-0">ACHIEVABLE WEIGHT</span>
+                    <span class="form-warning montserrat f-normal t-center color-5 mrg-t-lm">Based on your answers, you could be…</span>
+                    <span class="form-headline poppins f-bold t-center color-0 mrg-t-lm" id="goal-weigth-output">40 kg</span>
+                    <span class="form-text montserrat f-normal t-center color-14 mrg-t-s" id="goal-weigth-date">by October 16th, 2020</span>
+                    
+                    <svg class="full" width="496" height="211" viewBox="0 0 496 211" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <style>
+                            .curve-day-weight{
+                                font: normal 14px montserrat, sans-serif;
+                                line-height: 14px;
+                                fill: #6f6f6f;
+                                letter-spacing: 0.02em;
+                                text-anchor: middle;
+                            }
+                            .gain > #weigth-curve-img{ transform: translateX(100%) scaleX(-1);}
+                            .gain > #weigth-curve-text text:nth-child(odd){ transform: translateY(114px); }
+                            .gain > #weigth-curve-text text:nth-child(even){ transform: translateY(-114px); }
+                            .gain circle{ transform: translateX(-5px)}
+                        </style>
+                        <g id="weigth-curve" class="">
+                            <g id="weigth-curve-text">
+                                <text x="105" y="16" class="curve-day-weight">Sep 2</text>
+                                <text x="400" y="130" class="curve-day-weight">Oct 2</text>
+                                <text x="105" y="77" class="curve-day-weight">50 kg</text>
+                                <text x="400" y="191" class="curve-day-weight">50 kg</text>
+                            </g>
+                            <g id="weigth-curve-img">
+                                <path opacity="0.7" d="M235.5 98.2502C136.3 37.0502 38.5 26.0836 2 28.2502V211H494.5V161.75C449.5 166.083 334.7 159.45 235.5 98.2502Z" fill="url(#paint0_linear)"/>
+                                <path d="M2 28.2502C38.5 26.0836 136.3 37.0502 235.5 98.2502C334.7 159.45 449.5 166.083 494.5 161.75" stroke="url(#paint1_linear)" stroke-width="3" stroke-linecap="round"/>
+                                <circle cx="102" cy="42" r="8.5" fill="url(#paint2_linear)" stroke="white" stroke-width="3"/>
+                                <circle cx="400" cy="156" r="8.5" fill="url(#paint3_linear)" stroke="white" stroke-width="3"/>
+                            </g>
+                        </g>
+                        <defs>
+                            <linearGradient id="paint0_linear" x1="248.25" y1="28" x2="248.25" y2="211" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FF4D00" stop-opacity="0.17"/>
+                                <stop offset="0.5" stop-color="#DF835C" stop-opacity="0.06"/>
+                                <stop offset="1" stop-opacity="0"/>
+                            </linearGradient>
+                            <linearGradient id="paint1_linear" x1="-41.4004" y1="118.908" x2="728.312" y2="36.7122" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FB4F4F"/>
+                                <stop offset="1" stop-color="#FFCD1E"/>
+                            </linearGradient>
+                            <linearGradient id="paint2_linear" x1="91.2375" y1="45.4866" x2="122.824" y2="44.5633" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FBA24F"/>
+                                <stop offset="1" stop-color="#FF1E1E"/>
+                            </linearGradient>
+                            <linearGradient id="paint3_linear" x1="385.238" y1="159.487" x2="416.824" y2="158.563" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FBA24F"/>
+                                <stop offset="1" stop-color="#FF1E1E"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+
+                    <span class="form-text montserrat f-normal t-center color-5 mrg-t-h">We have determined this by looking at your activity level, metabolic health, and fatigue score.</span>
+                </div>
+                
+                <div class="row mrg-t-m full">
+                    <div class="form-min box-shadow-1 center-container">
+                        <div class="column">
+                            <span class="form-headline poppins f-bold t-center color-0">87%</span>
+                            <p class="form-title montserrat f-normal t-center color-5 mrg-t-lm">Similar people lost<br>more than 10 lbs<br>on Keto.</p>
+                        </div>
+                    </div>
+                    <div class="form-min box-shadow-1 center-container">
+                        <div class="column">
+                            <span class="form-title montserrat f-normal t-center color-0 mrg-t-lm" id="goal-month">September, 2020</span>
+                            <table class="montserrat f-normal t-center color-5 mrg-t-lm calendar-table">
+                                <tr>
+                                    <td>MON</td><td>TUE</td><td>WED</td><td>THU</td><td>FRI</td><td>SAT</td><td class="color-14">SUN</td>
+                                </tr>
+                                <tr id="goal-week">
+                                </tr>
+                            </table>
+                            <span id="gain-weigth-speed" class="form-headline poppins f-bold t-center color-0 mrg-t-m">-5lbs</span>
+                            <span class="form-title montserrat f-normal t-center color-0 mrg-t-lm">After first week</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-min box-shadow-1 mrg-t-m">
+                    <span class="form-title montserrat f-semibold t-center color-5 mrg-t-lm">BMI</span>
+                    <span class="form-warning montserrat f-normal t-center color-5 mrg-t-lm">You are likely: <span class="color-14" id="bmi-text">UNDERWEIGHT</span></span>
+                    <span class="form-headline poppins f-bold t-center color-0 mrg-t-lm" id="bmi-index">15.4</span>
+                </div>
+
+                <div class="form-min box-shadow-1 mrg-t-m">
+                    <span class="form-title montserrat f-semibold t-center color-0 mrg-t-lm">BODY CHANGE ESTIMATIONS</span>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 291 289" width="291" height="289" class="mrg-t-m">
+                        <path id="gender-icon-1" xmlns="http://www.w3.org/2000/svg" fill="url(#paint100_linear)" d="M87.27 104.21V104v.21zm-42.78 0V104v.21zm69.25 51.22c-.47-2.05-1.07-4.07-1.58-6.1a51.2 51.2 0 01-1.72-7.85c-.07-2.66.01-5.32.26-7.98.19-4.57.07-9.16-.35-13.72-.48-4.82-1.25-9.6-2.3-14.33-.16-1.11-.33-2.23-.56-3.33a17.15 17.15 0 01-.77-4.78v.14c.24-3.1.32-6.23.22-9.34-.3-3.3-.95-6.56-1.94-9.72a18.8 18.8 0 01-1.02-7.63c.3-2.6.85-4.92.34-7.55a14.9 14.9 0 00-3.74-7.45 15.25 15.25 0 00-7.2-4.34c-.95-.25-1.93-.3-2.89-.5-.9-.23-1.76-.57-2.58-.99-.83-.25-1.7-.4-2.58-.43l-1.48-.47-.31.1a13.18 13.18 0 01-5.92-3.57 16.04 16.04 0 01-3.04-5.92l-.5-1.9c.89-.73 1.7-1.53 2.44-2.4.47-.66.72-1.46.71-2.27.1-.95.18-2.2.27-3.53 1.1.34 2.2-3.43 2.52-4.14.58-.83.84-1.83.73-2.82-.19-.77-.95-1.73-1.8-1.12.58-2.86 1.21-5.7 1.69-8.58a9.02 9.02 0 00-1.46-7.2C76.21 1.65 70.64.64 65.85 1.14c-4.8-.53-10.32.5-13.34 4.59a9.12 9.12 0 00-1.44 7.19c.46 2.87 1.1 5.72 1.67 8.58-.85-.6-1.6.35-1.8 1.12-.1 1 .16 1.99.73 2.82.34.7 1.42 4.48 2.58 4.14.08 1.27.17 2.54.27 3.53 0 .8.23 1.6.7 2.26.73.86 1.53 1.65 2.4 2.37l-.5 1.94a15.82 15.82 0 01-3.09 5.95 13.28 13.28 0 01-5.88 3.54l-.3-.07-1.48.47c-.67.02-1.34.08-2.01.19-.81.25-1.55.75-2.36 1.03-.92.22-1.86.4-2.8.5-2.44.5-4.72 1.58-6.64 3.14a15.22 15.22 0 00-4.88 7.77 16.5 16.5 0 00-.11 7.1c.32 1.6.4 3.25.22 4.87-.25 1.45-.6 2.88-1.03 4.28a47.4 47.4 0 00-1.94 9.72c-.11 3.12-.04 6.24.2 9.34v-.14a17.2 17.2 0 01-.75 4.78c-.24 1.1-.4 2.23-.57 3.33a109.3 109.3 0 00-2.7 20.55c-.1 3.23 0 6.45.13 9.68.19 1.92.24 3.85.17 5.77a37.26 37.26 0 01-1.15 5.56c-.53 2.18-1.1 4.35-1.67 6.54-.4 1.54-.9 2.97.12 4.42.34.6.83 1.1 1.44 1.44.29.09.56.23.8.42.7.76 1.34 1.57 1.92 2.42.7.85 1.48 1.65 2.32 2.38.73.66 1.69 1.66 2.78 1.56 1.3-.14 2.67-1.72 3.36-2.74.3-.45.95-2.73-.43-2 .75-1.27-.26-1.46-1.12-.87-.57.36-1.09.79-1.56 1.27.35-.44 1.57-1.52 1.55-2.09 0-1.5-2.47.98-2.79 1.27.23-.29 1.3-1.27 1.05-1.71-.4-.84-1.67.73-2.3.58a6.8 6.8 0 01.6-3.8c.35-1.08.68-2.16 1.12-3.2.2-.5.5-1.49.91-.65.5 1.06.2 2.54.27 3.73a6 6 0 001.12 3.38c.93 1.03 1.5-.26 1.62-1.13.18-1.43 0-2.86.09-4.29.25-1.47.32-2.98.2-4.47a15.56 15.56 0 00-1.96-4.4 23.95 23.95 0 01-1.44-3.82c0-5.19 2.06-9.85 3.64-14.7.8-2.4 1.4-4.88 1.76-7.39.34-2.41.34-4.85.5-7.3.21-1.9.54-3.78 1-5.63.72-2.4 1.5-4.7 1.98-7.15 1.42-4.88 2.58-9.82 3.87-14.74a11.65 11.65 0 002.58 5.53c.07.1.14.19.18.3-.38 1.75-.35 3.56.08 5.3.5 1.34.79 2.74.85 4.16-.16.7-.28 1.4-.36 2.1.02.74.1 1.48.22 2.2-.5 1.77-.92 3.57-1.29 5.35a12.36 12.36 0 00-.26 5l.4 2.88-.17 1.09a41.47 41.47 0 00-1.29 4.7c-1.7 4.17-1.45 12.57-1.45 12.57-1.84 15.91-1.48 32 1.08 47.82.48 2.93 1.02 5.85 1.68 8.76.36 1.6.81 3.2 1.13 4.8.04 1.56-.1 3.11-.41 4.63-.04 1.91.02 3.82.18 5.72-.02 1.5-.2 2.98-.53 4.44a96.61 96.61 0 00-2.2 19.44c.19 7.62 3.08 14.78 5.17 21.97a70.18 70.18 0 012.38 17.6c-.02 1.2-.22 2.38-.59 3.52-.49 1.88.6 3.66.08 5.57a15.56 15.56 0 01-1.72 4.18c-.58.91-3.14 3.03-.93 3.52l.47.07.3.14a2.59 2.59 0 001.9.73c.23 0 .46-.04.69-.1l.35.15c.4.19.84.28 1.28.26l1.04-.08h1.29l.55.06c.22.05.44.05.66 0 .3-.04.58-.16.81-.34.27.6 1.54.35 2.08.34h-.2c1.05 0 3.47.3 4.16-.74.68-1.04-.16-2.65-.61-3.81a23.07 23.07 0 01-1.07-3.81 7.96 7.96 0 01-.22-3.48 5.96 5.96 0 00-.12-5.56 9.91 9.91 0 01-1.28-4.02 78.82 78.82 0 01-.3-11.31c.15-4.64.91-9.23 1.29-13.86.25-3.3.32-6.63.22-9.95-.13-4.1-.6-8.18-.9-12.27.02-2.73.45-5.43 1.28-8.03.98-3.64 1.5-7.38 1.55-11.15.2-4.61 1.11-9.12 1.7-13.7.52-4.04.96-8.08 1.3-12.13.31-3.43.45-6.88.4-10.32 0-3.81-.33-7.63 0-11.44.5.27 1.08.38 1.66.32.54.06 1.08-.05 1.56-.3.3 3.8 0 7.73 0 11.61-.05 3.4.09 6.79.4 10.17.5 6.92 1.36 13.82 2.58 20.66.39 3.04.61 6.1.68 9.16a33 33 0 001.17 6.62c.63 1.9 1.09 3.85 1.37 5.83.13 2.55.02 5.1-.32 7.63a117.9 117.9 0 00-.5 9.57c0 7.38 1.29 14.62 1.54 21.98.15 3.68.05 7.37-.32 11.03-.16 1.39-.6 2.73-1.29 3.94a5.97 5.97 0 00-.13 5.55c.2 1.18.13 2.38-.2 3.52a23.36 23.36 0 01-1.11 3.96c-.44 1.09-1.38 2.46-.64 3.7.75 1.23 3.1.85 4.2.8h-.31c.55 0 1.78.25 2.06-.35.24.19.52.3.83.34.2.06.43.06.64 0l.56-.06h1.28l1.04.09c.44.01.88-.08 1.29-.27l.34-.14c.23.06.47.09.7.1a2.6 2.6 0 001.9-.73l.3-.14.48-.08c2.02-.43.1-2.15-.56-3.01a12.92 12.92 0 01-1.75-3.6 7.77 7.77 0 01-.21-4.6c.3-1.62-.56-2.9-.65-4.47-.03-2.45.11-4.9.44-7.33.22-3.14.68-6.27 1.37-9.34 1.76-7.1 4.76-13.85 5.58-21.19.75-6.73-.45-13.72-1.59-20.33-.45-1.8-.74-3.64-.89-5.49 0-1.84.28-3.68.25-5.54-.03-1.85-.75-3.8-.46-5.61.32-1.62.78-3.2 1.13-4.8a170.85 170.85 0 003.57-46.67c-.17-3.32-.42-6.63-.81-9.92 0 0 .23-8.4-1.46-12.57a44.3 44.3 0 00-1.29-4.7l-.18-1.1.4-2.87c.26-1.67.18-3.37-.24-5-.43-1.78-.84-3.58-1.3-5.34.13-.73.2-1.47.23-2.21 0-.72-.27-1.4-.36-2.1.05-1.42.34-2.82.83-4.16.43-1.74.47-3.55.1-5.3v-.1c1.6-1.34 2.28-3.73 2.74-5.65 1.3 5.08 2.5 10.16 3.99 15.16.45 2.45 1.29 4.7 1.97 7.09.37 1.72.66 3.45.85 5.2.17 2.44.18 4.88.5 7.3a44.1 44.1 0 001.77 7.39c1.59 4.84 3.65 9.5 3.64 14.69a30.58 30.58 0 01-1.22 3.34c-.56 1.27-1.4 2.39-1.87 3.7-.42 1.51-.49 3.1-.21 4.65.12 1.35.17 2.72.14 4.08 0 .66-.08 2.87 1.1 2.73 1.17-.14 1.4-2.1 1.54-2.8.27-1.28.12-2.55.27-3.82.08-.61.22-1.7.79-.81.57 1.07 1 2.2 1.29 3.38.42 1.27 1.19 2.9.75 4.28-.56.14-1.99-1.41-2.3-.59-.17.45.8 1.4 1.06 1.72-.32-.33-2.75-2.82-2.8-1.27 0 .57 1.2 1.65 1.56 2.08-.47-.47-1-.9-1.56-1.27-.84-.56-1.9-.38-1.13.88-.88-.47-1.04.65-.86 1.2a7.03 7.03 0 002.58 3c1.9 1.33 3.43-.43 4.76-1.72 1.33-1.3 2.18-2.75 3.4-4 .59-.58 1.3-.68 1.89-1.38a3.8 3.8 0 001.06-3.13c-.18-.77.2.87 0 0l-.2-.32z"/>
+                        <path id="gender-icon-0" xmlns="http://www.w3.org/2000/svg" fill="url(#paint100_linear)" d="M107.51 130.1c-2.72-8.88-6.46-22.1-7.04-24.05-.58-1.95-2.38-32.34-4.46-39.7-2.08-7.37-7.42-8.1-8.66-8.96a4.67 4.67 0 00-3.17-.5 4.44 4.44 0 00-2.82-1.45l.1.47a19.7 19.7 0 01-5.44-3.52 17.6 17.6 0 01-3.2-9.65c5.48-5.05 5.48-9.04 5.48-9.18 1.38-.46 1.3-2.56 2-3.86a2.05 2.05 0 00-.41-2.47h.08s3.4-9.12-1.1-15.7-12.96-5.44-12.96-5.44-8.38-1.24-12.95 5.44c-4.58 6.68-1.1 15.7-1.1 15.7h.08a2.05 2.05 0 00-.42 2.47c.7 1.24 1.18 3.86 2.1 3.86 0 .14.45 4.59 5.49 9.18a17.2 17.2 0 01-3.44 9.76 18.91 18.91 0 01-5.3 3.41l.05-.47a4.44 4.44 0 00-2.81 1.46 4.67 4.67 0 00-3.17.5c-1.24.87-6.6 1.6-8.66 8.96-2.06 7.35-3.89 37.76-4.46 39.7-.57 1.94-4.32 15.17-7.04 24.05-2.72 8.88-3.45 10.95-3.45 10.95-1.35 2.36-3.83 13.12-3.83 13.12 0 .41.03.83.11 1.23.1.18.36.94.5 1.24.27.4.6.75.98 1.05.1.1.28.6.64 1.08.23.29.5.54.83.73.48.88 1.06 1.7 1.72 2.47.62.5 2.13 2.24 3.89 3.7 1.75 1.48 1.68-.33.79-1.72a8.45 8.45 0 00-.7-.9c.71-.57 2.18-1.65 2.18-1.65s1-.96.46-1.7c-.53-.72-2.92 1.7-2.92 1.7.6-.7 1.15-1.44 1.65-2.21.06-.3-.56-.82-1.35-.14-.8.68-1.59 1.55-1.59 1.55.41-.52.78-1.06 1.1-1.64.12-.34-.45-.8-1.4.12-.13.14-.3.24-.49.3.22-2.44.68-4.85 1.36-7.2.47-.66 1.39.28 1.54.96.14.68-.13 4.55 1.23 5.79 1.37 1.23 1.44-.5 1.24-1.63-.17-1.71-.09-3.44.25-5.12a9 9 0 00-1-5.82 16.95 16.95 0 01-1.4-4.5s3.3-6.19 6.76-11.97a55.61 55.61 0 006.18-13.6c.65-2.74 1.44-6.18 1.74-7.36.08-.37.55-2.07 1.23-4.28l3.64-12.64c.38.56.8 1.1 1.24 1.6a27.71 27.71 0 011.7 4.6v.18c.31 3.59.14 7.2-.5 10.74-.25 1.08-3.15 5.18-6.55 15.89A23.84 23.84 0 0040 132.8c-2.48 11.87-2.97 26.87-.2 37.47 2.31 8.82 5.5 18.8 7.14 24.38.38 1.56.78 3.12 1.03 3.9v.32c0 .97-.1 2.72-.09 4.45a88 88 0 00.7 9.18v1.03c-.08 1.66-2.1 14.14 0 26.06 2.09 11.92 5.82 24.2 6.3 26.96.49 2.77-.43 8.01-.06 9.37.5 1.05.77 2.2.82 3.35a10.73 10.73 0 01-2.98 5.3c-.9.87-1.66 1.38-1.77 2.38a1.74 1.74 0 00.18 1.5c.34.4 1.32.51 2.57.54 1.25.02 3.04 0 4.85 0h5.23s2.27 0 1.78-1.73c-.48-1.73-1.06-2.12-2.07-5.42a17.1 17.1 0 01-.8-4.5c0-.34.08-2.17.16-2.55.43-1.14.57-2.36.43-3.57a5.43 5.43 0 00-.34-1.23 23.71 23.71 0 01-1.5-8.06c0-2.12 0-15.38.78-20.51.8-5.13-.58-10.9-.86-15-.14-3.4-.1-6.8.1-10.2l.14-2.1c.6-1.64.97-3.33 1.13-5.05v.1c.18-1.22.24-2.46.16-3.7-.28-4.77-.72-8.74-.86-11.41-.15-2.67.58-14.84-.18-25.34a75.38 75.38 0 01-.18-4.78c0-.61.5-6.84.81-10.8.12-.69.18-1.39.16-2.09 0-.46.08-.8.1-.98.08-.8.24-1.6.49-2.37.91.28 1.87.39 2.83.33.96.06 1.92-.05 2.83-.33a12.56 12.56 0 01.59 3.35c-.02.7.04 1.4.16 2.09.32 3.96.78 10.19.81 10.8 0 1.46-.06 3.05-.18 4.78-.76 10.5 0 22.67-.18 25.34-.17 2.67-.58 6.64-.86 11.4-.08 1.25-.02 2.5.16 3.72v-.11c.16 1.72.54 3.41 1.13 5.04l.13 2.11c.21 3.4.25 6.8.11 10.2-.28 4.1-1.66 9.88-.86 15 .79 5.12.79 18.4.79 20.5a23.71 23.71 0 01-1.51 8.07c-.16.4-.27.81-.34 1.23-.14 1.2 0 2.43.43 3.56.08.39.14 2.22.16 2.55a17.1 17.1 0 01-.8 4.51c-1.01 3.3-1.6 3.71-2.07 5.42-.49 1.7 1.78 1.73 1.78 1.73h10.08c1.34 0 2.23-.14 2.57-.55a1.74 1.74 0 00.18-1.5c-.11-1-.88-1.5-1.77-2.38a10.73 10.73 0 01-2.98-5.29c.05-1.16.32-2.3.82-3.35.37-1.36-.55-6.61-.07-9.37.49-2.75 4.26-15.06 6.32-26.96 2.05-11.9 0-24.4 0-26.06v-1.03a88 88 0 00.69-9.18c0-1.73-.09-3.48-.09-4.45v-.31c.25-.8.65-2.35 1.03-3.9 1.63-5.58 4.83-15.57 7.14-24.39 2.77-10.6 2.32-25.6-.2-37.47a23.84 23.84 0 00-2.06-7.77c-3.4-10.7-6.3-14.84-6.55-15.89a40.75 40.75 0 01-.5-10.74v-.19c.35-1.34.82-2.66 1.38-3.94.1-.22.2-.44.32-.65.45-.5.86-1.04 1.24-1.6l3.64 12.64c.63 2.2 1.1 3.91 1.23 4.28l1.74 7.36a55.62 55.62 0 006.18 13.6 325.1 325.1 0 016.76 11.97 16.94 16.94 0 01-1.4 4.5 9 9 0 00-1 5.82c.34 1.68.42 3.4.25 5.12-.21 1.12-.11 2.85 1.24 1.63 1.34-1.23 1.06-5.1 1.23-5.79.18-.68 1.07-1.62 1.54-.96a38.6 38.6 0 011.36 7.2 1.13 1.13 0 01-.5-.3c-.94-.92-1.5-.46-1.4-.12.32.58.7 1.13 1.1 1.64 0 0-.8-.87-1.58-1.55s-1.4-.16-1.35.14c.5.78 1.05 1.52 1.65 2.21 0 0-2.38-2.47-2.92-1.7-.54.78.46 1.7.46 1.7s1.47 1.08 2.18 1.64c-.25.29-.49.6-.7.9-.9 1.4-.96 3.2.8 1.74 1.75-1.47 3.26-3.22 3.88-3.71.66-.76 1.24-1.59 1.72-2.47.32-.2.6-.44.83-.73.36-.47.55-.98.64-1.08.38-.3.71-.65.98-1.05.14-.36.4-1.12.5-1.24.08-.4.12-.82.1-1.23 0 0-2.4-10.76-3.8-13.13 0 0-.72-2.08-3.46-10.95h-.22z"/>
+                        <path stroke="url(#paint101_linear)" d="M52 47h239M52 89h239M52 140h239M52 211h239"/>
+                        <style>.text-100{ font: normal 16px montserrat, sans-serif; text-anchor: end;}</style>
+                        <text x="291" y="36" fill="#6f6f6f" class="text-100">Neck 5%</text>
+                        <text x="291" y="80" fill="#6f6f6f" class="text-100">Arm 8%</text>
+                        <text x="291" y="128" fill="#6f6f6f" class="text-100">Tummy 20%</text>
+                        <text x="291" y="200" fill="#6f6f6f" class="text-100">Thigh 5%</text>
+                        <defs><linearGradient id="paint100_linear" x1="8.36" x2="163.26" y1="196.84" y2="195.27" gradientUnits="userSpaceOnUse"><stop stop-color="#FB4F4F"/><stop offset="1" stop-color="#FFCD1E"/></linearGradient><linearGradient id="paint101_linear" x1="290.37" x2="48.87" y1="47" y2="47" gradientUnits="userSpaceOnUse"><stop/><stop offset="1" stop-opacity="0"/></linearGradient></defs>
+                    </svg>
+
+                    <span class="form-text montserrat f-normal t-center color-5 mrg-t-m width-80">We have determined this by looking at your activity level, metabolic health, and fatigue score.</span>
+                </div>
+
+                <div class="form-min box-shadow-1 mrg-t-m">
+                    <span class="form-title montserrat f-semibold t-center color-0 mrg-t-lm">METABOLIC AGE</span>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 309 141" width="309" height="141" class="mrg-t-l">
+                        <rect width="182" height="30" y="65" fill="#D7D7DD" rx="15"/>
+                        <rect width="284" height="30" y="111" fill="url(#paint200_linear)" rx="15"/>
+                        <path stroke="url(#paint201_linear)" d="M182 79.5V28"/>
+                        <path stroke="url(#paint202_linear)" d="M284 125.5V74"/>
+                        <style>
+                            #metabolic-age text{
+                                font: 600 18px montserrat, sans-serif;
+                                fill: #6f6f6f;
+                                text-anchor: start;
+                            }
+                        </style>
+                        <g id="metabolic-age">
+                            <text x="185" y="18" fill="#000" class="text-200" >22</text>
+                            <text x="285" y="65" fill="#000" class="text-200">27</text>
+                        </g>
+                        <defs>
+                            <linearGradient id="paint200_linear" x1="-25.03" x2="391.96" y1="131.23" y2="15.84" gradientUnits="userSpaceOnUse"><stop stop-color="#FB4F4F"/><stop offset="1" stop-color="#FFCD1E"/></linearGradient>
+                            <linearGradient id="paint201_linear" x2="182.5" y1="28" y2="79.5" gradientUnits="userSpaceOnUse" x1="182.5"><stop/><stop offset="1" stop-opacity="0"/></linearGradient>
+                            <linearGradient id="paint202_linear" x1="284.5" x2="284.5" y1="74" y2="125.5" gradientUnits="userSpaceOnUse"><stop/><stop offset="1" stop-opacity="0"/></linearGradient>
+                        </defs>
+                    </svg>
+
+                    <span class="form-text montserrat f-normal t-center color-5 mrg-t-m width-80">The metabolic age indicates the age of your body. If your metabolic age is higher than your actual age, it could mean you’re experiencing health problems or may need to change your eating and exercising habits.</span>
+                </div>
+
+                <div class="form-min box-shadow-1 mrg-t-m">
+                    <span class="form-title montserrat f-semibold t-center color-0 mrg-t-lm">KETO COMPATIBILITY</span>
+                    <span class="form-warning montserrat f-normal t-center color-5 mrg-t-lm">Your compatibility is: <span class="color-14">HIGH</span></span>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 129 129" width="129" height="129" class="mrg-t-m">
+                        <circle cx="64.5" cy="64.5" r="61.5" stroke="#D7D7DD" stroke-width="6"/>
+                        <circle cx="64.5" cy="64.5" r="46.5" fill="url(#paint300_linear)"/>
+                        <defs>
+                            <linearGradient id="paint300_linear" x1="9.8" x2="156.68" y1="80.71" y2="76.42" gradientUnits="userSpaceOnUse"><stop stop-color="#FB4F4F"/><stop offset="1" stop-color="#FFCD1E"/></linearGradient>
+                        </defs>
+                        <text x="64.5" y="70.5" fill="#ffffff" style="font: bold 18px poppins, sans-serif; text-anchor: middle; letter-spacing: 0.05em;">HIGH</text>
+                    </svg>
+
+                    <span class="form-text montserrat f-normal t-center color-5 mrg-t-m width-80">We have determined that for your dietary profile, metabolic type, and your goals, the Keto Diet is HIGHLY COMPATIBLE.</span>
+                </div>
+
+                <div class="form-min box-shadow-1 mrg-t-m">
+                    <span class="form-title montserrat f-semibold t-center color-0 mrg-t-lm">ANXIETY FACTORS</span>
+                    <span class="form-warning montserrat f-normal t-center color-5 mrg-t-lm">You may be: <span class="color-14 anxiety-factors-text">HIGHLY STRESSED</span></span>
+
+                    <svg class="mrg-t-m" xmlns="http://www.w3.org/2000/svg" width="228" height="120" viewBox="0 0 228 120" fill="none">
+                        <style>
+                            .column-status-0{ fill:#D7D7DD;}
+                            .column-status-1{ fill:#FFAD94;}
+                            .column-status-2{ fill:#FFAD94;}
+                            .column-status-3{ fill:#FF7D54;}
+                            .column-status-4{ fill:#FF3D00;}
+                         </style>
+                        <g id="anxiety-factors">
+                            <path class="column-status-0" d="M8 94.6963C10.1217 94.6963 12.1566 95.5391 13.6569 97.0394C15.1571 98.5397 16 100.575 16 102.696V119.566H0V102.696C0 100.575 0.842855 98.5397 2.34315 97.0394C3.84344 95.5391 5.87827 94.6963 8 94.6963V94.6963Z"/>
+                            <path class="column-status-0" d="M27.273 86.0869C29.3947 86.0869 31.4296 86.9298 32.9299 88.4301C34.4302 89.9304 35.273 91.9652 35.273 94.0869V119.565H19.273V94.0869C19.273 91.9652 20.1159 89.9304 21.6162 88.4301C23.1164 86.9298 25.1513 86.0869 27.273 86.0869V86.0869Z"/>
+                            <path class="column-status-0" d="M46.545 77.4775C48.6667 77.4775 50.7015 78.3204 52.2018 79.8207C53.7021 81.321 54.545 83.3558 54.545 85.4775V119.565H38.545V85.4775C38.545 83.3558 39.3878 81.321 40.8881 79.8207C42.3884 78.3204 44.4233 77.4775 46.545 77.4775V77.4775Z"/>
+                            <path class="column-status-0" d="M65.818 68.8701C67.9397 68.8701 69.9746 69.713 71.4748 71.2133C72.9751 72.7136 73.818 74.7484 73.818 76.8701V119.57H57.818V76.8701C57.818 74.7484 58.6608 72.7136 60.1611 71.2133C61.6614 69.713 63.6963 68.8701 65.818 68.8701V68.8701Z"/>
+                            <path class="column-status-0" d="M85.091 60.2607C87.2127 60.2607 89.2476 61.1036 90.7479 62.6039C92.2481 64.1042 93.091 66.139 93.091 68.2607V119.561H77.091V68.2607C77.091 66.139 77.9339 64.1042 79.4341 62.6039C80.9344 61.1036 82.9693 60.2607 85.091 60.2607V60.2607Z"/>
+                            <path class="column-status-0" d="M104.364 51.6523C106.486 51.6523 108.521 52.4952 110.021 53.9955C111.521 55.4958 112.364 57.5306 112.364 59.6523V119.565H96.364V59.6523C96.364 57.5306 97.2069 55.4958 98.7072 53.9955C100.207 52.4952 102.242 51.6523 104.364 51.6523V51.6523Z"/>
+                            <path class="column-status-0" d="M123.636 43.043C125.758 43.043 127.793 43.8858 129.293 45.3861C130.793 46.8864 131.636 48.9212 131.636 51.043V119.565H115.636V51.043C115.636 48.9212 116.479 46.8864 117.979 45.3861C119.479 43.8858 121.514 43.043 123.636 43.043V43.043Z"/>
+                            <path class="column-status-0" d="M142.909 34.4346C145.031 34.4346 147.066 35.2774 148.566 36.7777C150.066 38.278 150.909 40.3128 150.909 42.4346V119.565H134.909V42.4346C134.909 40.3128 135.752 38.278 137.252 36.7777C138.752 35.2774 140.787 34.4346 142.909 34.4346V34.4346Z"/>
+                            <path class="column-status-0" d="M162.182 25.8262C164.304 25.8262 166.339 26.669 167.839 28.1693C169.339 29.6696 170.182 31.7044 170.182 33.8262V119.565H154.182V33.8262C154.182 31.7044 155.025 29.6696 156.525 28.1693C158.025 26.669 160.06 25.8262 162.182 25.8262V25.8262Z"/>
+                            <path class="column-status-0" d="M181.455 17.2168C183.577 17.2168 185.612 18.0597 187.112 19.5599C188.612 21.0602 189.455 23.0951 189.455 25.2168V119.565H173.455V25.2168C173.455 23.0951 174.298 21.0602 175.798 19.5599C177.298 18.0597 179.333 17.2168 181.455 17.2168V17.2168Z"/>
+                            <path class="column-status-0" d="M200.727 8.60938C202.849 8.60938 204.884 9.45223 206.384 10.9525C207.884 12.4528 208.727 14.4876 208.727 16.6094V119.566H192.727V16.6094C192.727 14.4876 193.57 12.4528 195.07 10.9525C196.57 9.45223 198.605 8.60938 200.727 8.60938V8.60938Z"/>
+                            <path class="column-status-0" d="M220 0C222.122 0 224.157 0.842855 225.657 2.34315C227.157 3.84344 228 5.87827 228 8V119.565H212V8C212 5.87827 212.843 3.84344 214.343 2.34315C215.843 0.842855 217.878 0 220 0V0Z"/>
+                        </g>
+                     </svg>
+
+                    <span class="form-text montserrat f-normal t-center color-5 mrg-t-m width-80">We have determined that you may be <span class="anxiety-factors-text">HIGHLY STRESSED.</span></span>
+                </div>
+
+                <div class="form-min box-shadow-1 mrg-t-m">
+                    <span class="form-title montserrat f-semibold t-center color-0 mrg-t-lm">ENERGY METABOLISM</span>
+                    <span class="form-warning montserrat f-normal t-center color-5 mrg-t-lm">Your metabolism is: <span class="color-14">SLOW BURNER</span></span>
+
+                    <svg class="mrg-t-m" xmlns="http://www.w3.org/2000/svg" width="197" height="82" viewBox="0 0 197 82" fill="none">
+                        <path d="M19 2H175.842C180.756 2 184.741 5.9841 184.741 10.8987V16.6677C184.741 20.6054 187.933 23.7975 191.87 23.7975C193.599 23.7975 195 25.1987 195 26.9272V55.3323C195 57.0608 193.599 58.462 191.87 58.462C187.933 58.462 184.741 61.6541 184.741 65.5918V71.231C184.741 76.074 180.815 80 175.972 80H19C9.61115 80 2 72.3888 2 63V19C2 9.61116 9.61116 2 19 2Z" stroke="#C3C3C7" stroke-width="4"/>
+                        <rect class="column-status-3" x="9" y="8" width="20" height="65" rx="9" fill="#D7D7DD"/>
+                        <rect class="column-status-2" x="32" y="8" width="20" height="65" rx="9" fill="#D7D7DD"/>
+                        <rect class="column-status-1" x="55" y="8" width="20" height="65" rx="9" fill="#D7D7DD"/>
+                        <path class="column-status-0" fill-rule="evenodd" clip-rule="evenodd" d="M87 8C82.0294 8 78 12.0294 78 17V64C78 68.9706 82.0294 73 87 73H89C93.9706 73 98 68.9706 98 64V45.2638H82L98 23.4821V17C98 12.0294 93.9706 8 89 8H87Z" fill="#D7D7DD"/>
+                        <path class="column-status-0" fill-rule="evenodd" clip-rule="evenodd" d="M110 8C105.029 8 101 12.0293 101 17V36.3545H116.917L101 60.4883V64C101 68.9707 105.029 73 110 73H112C116.971 73 121 68.9707 121 64V17C121 12.0293 116.971 8 112 8H110Z" fill="#D7D7DD"/>
+                        <rect class="column-status-0" x="124" y="8" width="20" height="65" rx="9" fill="#D7D7DD"/>
+                        <rect class="column-status-0" x="147" y="8" width="20" height="65" rx="9" fill="#D7D7DD"/>
+                    </svg>
+
+                    <span class="form-text montserrat f-normal t-center color-5 mrg-t-m width-80" id="energy-metabolism">Right now, you may not be efficiently turning the food you eat into energy.</span>
+                </div>
+
+                <span class="form-headline poppins t-center mrg-t-h f-bold">
+                    YOUR 28 DAY<br>
+                    PERSONALIZED<br>
+                    <span class="color-10">MEAL PLAN IS READY!</span>
+                </span>
+                
+                <div class="form-min box-shadow-1 mrg-t-m">
+                    <img src="./src/img/meal-plan-icon.svg" class="mrg-t-m">
+                    <ul class="plan-list mrg-t-h width-80 f-normal form-text">
+                        <li>
+                            <span class="f-bold form-subtitle color-0">Personalized 28-Day Meal Plan:</span><br>
+                            <span class="color-5">You get a comprehensive 28-Day Meal Plan designed specifically to fit YOUR body and YOUR health goals.</span>
+                        </li>
+                        <li>
+                            <span class="f-bold form-subtitle color-0">Get Results Quickly & Easily:</span><br>
+                            <span class="color-5">Each of the suggested recipes in your meal plan are designed to meet your goals — while still allowing for flexibility.</span>
+                        </li>
+                        <li>
+                            <span class="f-bold form-subtitle color-0">We’ve Done All The Work For You!:</span><br>
+                            <span class="color-5">No more stressing out over exact measurements. No more trying to figure out what to eat next. We’ve planned and calculated each meal for YOU.</span>
+                        </li>
+                        <li>
+                            <span class="f-bold form-subtitle color-0">Time & Budget Friendly:</span><br>
+                            <span class="color-5">You’ll only use ingredients that you know, like, and are easy on your wallet. And while we use a professional chef to plan out each of the delicious keto meals inside your plan, you don’t need any fancy cooking skills to prepare them yourself. The instructions are clear, simple and make preparation a breeze.</span>
+                        </li>
+                        <li>
+                            <span class="f-bold form-subtitle color-0">Digital Access On Any Device:</span><br>
+                            <span class="color-5">Download and access your personalized meal plan anywhere and at any time, on your phone, tablet or computer.</span>
+                        </li>
+                    </ul>
+                    <button class="plan-button fit-width mrg-t-m mrg-b-l montserrat f-bold color-3">Claim You Meal Plan Now</button>
+                </div>
+
+                <div class="form-min mrg-t-m box-shadow-1">
+                    <div class="column review">
+                        <div class="review-image full"><img class="full" src="./src/img/review-1.png"></div>
+                        <img class="full mrg-t-m" src="./src/img/quotas.svg">
+                        <span class="montserrat f-normal form-warning color-0 mrg-t-m review-text">Keto Chow was the key to my losing another 50 pounds (in four months) after losing the first 80 pounds with lazy keto (in nine months). As someone who is not willing to weigh, measure, and track food intake, Keto Chow enabled me to reach my macronutrient goals within my calorie limit effortlessly because I knew exactly what I was getting in every delicious meal. Keto Chow continues to be an important part of my daily menu as I maintain a healthy weight for the first time in my life.</span>
+                        <span class="montserrat f-normal form-title color-15 t-center mrg-t-m">Beverly J.</span>
+                    </div>
+                </div>
+                <div class="form-min mrg-t-m box-shadow-1">
+                    <div class="column review">
+                        <div class="review-image full"><img class="full" src="./src/img/review-2.png"></div>
+                        <img class="full mrg-t-m" src="./src/img/quotas.svg">
+                        <span class="montserrat f-normal form-warning color-0 mrg-t-m review-text">I lost weight really slowly (compared to some of the success stories you read online) but within about a week my blood sugar readings were within normal ranges and I was amazed. I was diagnosed T2 diabetic with my second pregnancy and getting my blood sugar in check was always an issue. When I started keto my A1C was at an alarming high of 12.8 – for those that don’t know, that is an average BS of 320 and could be deadly, and all while taking THREE different meds. Within 6 months of going keto my A1C was down to 5.8 and I was off all meds, my most recent A1C was 4.7!</span>
+                        <span class="montserrat f-normal form-title color-15 t-center mrg-t-m">Ashley M.</span>
+                    </div>
+                </div>
+                <div class="form-min mrg-t-m box-shadow-1">
+                    <div class="column review">
+                        <div class="review-image full"><img class="full" src="./src/img/review-3.png"></div>
+                        <img class="full mrg-t-m" src="./src/img/quotas.svg">
+                        <span class="montserrat f-normal form-warning color-0 mrg-t-m review-text">I loved other diets, like Weight Watchers for example, but I always got bored and then I’d quit and gain the weight back. In the last 3 weeks on Keto, I’ve lost over 10 lbs and clearly a few inches as you can see in my progress pics – I should have measured! I have cooked more on this Keto “diet” than any other one and I LOVE it. I honestly can’t wait to see what the next 3 weeks (and more!!!) bring. I’d like to lose 30 more pounds by the end of 2017!</span>
+                        <span class="montserrat f-normal form-title color-15 t-center mrg-t-m">Susan H.</span>
+                    </div>
+                </div>
+
+                <div class="form-min box-shadow-1 mrg-t-m">
+                    <img src="./src/img/meal-plan-icon.svg" class="mrg-t-m">
+                    <ul class="plan-list mrg-t-h width-80 f-normal form-text">
+                        <li>
+                            <span class="f-bold form-subtitle color-0">Personalized 28-Day Meal Plan:</span><br>
+                            <span class="color-5">You get a comprehensive 28-Day Meal Plan designed specifically to fit YOUR body and YOUR health goals.</span>
+                        </li>
+                        <li>
+                            <span class="f-bold form-subtitle color-0">Get Results Quickly & Easily:</span><br>
+                            <span class="color-5">Each of the suggested recipes in your meal plan are designed to meet your goals — while still allowing for flexibility.</span>
+                        </li>
+                        <li>
+                            <span class="f-bold form-subtitle color-0">We’ve Done All The Work For You!:</span><br>
+                            <span class="color-5">No more stressing out over exact measurements. No more trying to figure out what to eat next. We’ve planned and calculated each meal for YOU.</span>
+                        </li>
+                        <li>
+                            <span class="f-bold form-subtitle color-0">Time & Budget Friendly:</span><br>
+                            <span class="color-5">You’ll only use ingredients that you know, like, and are easy on your wallet. And while we use a professional chef to plan out each of the delicious keto meals inside your plan, you don’t need any fancy cooking skills to prepare them yourself. The instructions are clear, simple and make preparation a breeze.</span>
+                        </li>
+                        <li>
+                            <span class="f-bold form-subtitle color-0">Digital Access On Any Device:</span><br>
+                            <span class="color-5">Download and access your personalized meal plan anywhere and at any time, on your phone, tablet or computer.</span>
+                        </li>
+                    </ul>
+                    <button class="plan-button fit-width mrg-t-m mrg-b-l montserrat f-bold color-3">Claim You Meal Plan Now</button>
+                </div>
+
+            </article>
+
+            <!--First Q11: Final result-->
+            <article class="hidden" id="q106">
+                <span class="form-headline poppins t-center mrg-t-h f-bold">
+                    CLAIM YOUR <span class="color-10">PERSONALIZED</span><br>
+                    KETO MEAL PLAN NOW
+                </span>
+
+                <div id="discount-timer" class="form-min mrg-t-h box-shadow-1">
+                    <span class="montserrat f-semibold form-title color-14 t-center">LIMITED TIME OFFER</span>
+                    <span class="montserrat f-normal form-subtitle color-5 t-center mrg-t-lm">We Will Reserve Your Meal Plan For</span>
+                    <span class="timer f-bold poppins form-headline color-0 mrg-t-lm" id="timer">06:00</span>
+                    <span id="review-status" class="montserrat f-normal form-text color-5 t-center mrg-t-lm">4.5/5</span>
+
+                    <svg class="mrg-t-s" xmlns="http://www.w3.org/2000/svg" width="164" height="28" viewBox="0 0 164 28" fill="none">
+                        <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="1" y="1" width="162" height="24">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1289 1.54609C13.5114 0.867449 14.4887 0.867448 14.8712 1.54609L18.2189 7.48564C18.3617 7.73882 18.6074 7.91739 18.8923 7.97487L25.5757 9.32337C26.3393 9.47745 26.6413 10.4069 26.1141 10.9804L21.4998 15.9998C21.3031 16.2137 21.2092 16.5026 21.2426 16.7913L22.0253 23.5643C22.1148 24.3382 21.3241 24.9126 20.6158 24.5884L14.4162 21.751C14.1519 21.63 13.8481 21.63 13.5839 21.751L7.38427 24.5884C6.67591 24.9126 5.88528 24.3382 5.97472 23.5643L6.75749 16.7913C6.79085 16.5026 6.69697 16.2137 6.50028 15.9998L1.88596 10.9804C1.35873 10.4069 1.66073 9.47745 2.42436 9.32337L9.10773 7.97487C9.39261 7.91739 9.63839 7.73882 9.78109 7.48564L13.1289 1.54609ZM47.1289 1.54609C47.5114 0.867449 48.4887 0.867448 48.8712 1.54609L52.2189 7.48564C52.3616 7.73882 52.6074 7.91739 52.8923 7.97487L59.5757 9.32337C60.3393 9.47745 60.6413 10.4069 60.1141 10.9804L55.4998 15.9998C55.3031 16.2137 55.2092 16.5026 55.2426 16.7913L56.0253 23.5643C56.1148 24.3382 55.3241 24.9126 54.6158 24.5884L48.4162 21.751C48.1519 21.63 47.8481 21.63 47.5839 21.751L41.3843 24.5884C40.6759 24.9126 39.8853 24.3382 39.9747 23.5643L40.7575 16.7913C40.7909 16.5026 40.697 16.2137 40.5003 15.9998L35.886 10.9804C35.3587 10.4069 35.6607 9.47745 36.4244 9.32337L43.1077 7.97487C43.3926 7.91739 43.6384 7.73882 43.7811 7.48564L47.1289 1.54609ZM82.8712 1.54609C82.4887 0.867448 81.5114 0.867449 81.1289 1.54609L77.7811 7.48564C77.6384 7.73882 77.3926 7.91739 77.1077 7.97487L70.4244 9.32337C69.6607 9.47745 69.3587 10.4069 69.886 10.9804L74.5003 15.9998C74.697 16.2137 74.7909 16.5026 74.7575 16.7913L73.9747 23.5643C73.8853 24.3382 74.6759 24.9126 75.3843 24.5884L81.5839 21.751C81.8481 21.63 82.1519 21.63 82.4162 21.751L88.6158 24.5884C89.3241 24.9126 90.1148 24.3382 90.0253 23.5643L89.2426 16.7913C89.2092 16.5026 89.3031 16.2137 89.4998 15.9998L94.1141 10.9804C94.6413 10.4069 94.3393 9.47745 93.5757 9.32337L86.8923 7.97487C86.6074 7.91739 86.3617 7.73882 86.2189 7.48564L82.8712 1.54609ZM115.129 1.54609C115.511 0.867449 116.489 0.867448 116.871 1.54609L120.219 7.48564C120.362 7.73882 120.607 7.91739 120.892 7.97487L127.576 9.32337C128.339 9.47745 128.641 10.4069 128.114 10.9804L123.5 15.9998C123.303 16.2137 123.209 16.5026 123.243 16.7913L124.025 23.5643C124.115 24.3382 123.324 24.9126 122.616 24.5884L116.416 21.751C116.152 21.63 115.848 21.63 115.584 21.751L109.384 24.5884C108.676 24.9126 107.885 24.3382 107.975 23.5643L108.757 16.7913C108.791 16.5026 108.697 16.2137 108.5 15.9998L103.886 10.9804C103.359 10.4069 103.661 9.47745 104.424 9.32337L111.108 7.97487C111.393 7.91739 111.638 7.73882 111.781 7.48564L115.129 1.54609ZM150.871 1.54609C150.489 0.867448 149.511 0.867449 149.129 1.54609L145.781 7.48564C145.638 7.73882 145.393 7.91739 145.108 7.97487L138.424 9.32337C137.661 9.47745 137.359 10.4069 137.886 10.9804L142.5 15.9998C142.697 16.2137 142.791 16.5026 142.757 16.7913L141.975 23.5643C141.885 24.3382 142.676 24.9126 143.384 24.5884L149.584 21.751C149.848 21.63 150.152 21.63 150.416 21.751L156.616 24.5884C157.324 24.9126 158.115 24.3382 158.025 23.5643L157.243 16.7913C157.209 16.5026 157.303 16.2137 157.5 15.9998L162.114 10.9804C162.641 10.4069 162.339 9.47745 161.576 9.32337L154.892 7.97487C154.607 7.91739 154.362 7.73882 154.219 7.48564L150.871 1.54609Z" fill="#999999"/>
+                        </mask>
+                        <g mask="url(#mask0)">
+                            <rect width="164" height="28" fill="#D6D7D9"/>
+                            <rect id="review-status-bar" width="0%" height="28" fill="#FF873B" style="transition-duration:2.5s"/>
+                        </g>
+                    </svg>
+
+                    <span class="montserrat f-normal form-text color-5 t-center mrg-t-s">1028 Customer Reviews</span>
+                </div>
+
+                <div class="form-min mrg-t-h box-shadow-1">
+                    <span class="montserrat f-semibold form-title color-0 t-center">What You Get</span>
+                    <span class="form-headline poppins t-center mrg-t-lm f-bold color-10">INSTANT ACCESS</span>
+                    <span class="montserrat f-normal form-text color-5 t-center mrg-t-s">For a Low 1-Time Payment!</span>
+
+                    <ul class="plan-list mrg-t-m width-80 f-normal form-text">
+                        <li>
+                            <span class="f-bold form-subtitle color-0">Daily 5-Star Keto Meal Plan</span><br>
+                            <span class="color-5">100% personalized to YOUR metabolic type & weight loss goal</span>
+                        </li>
+                        <li>
+                            <span class="f-bold form-subtitle color-0">Get Results Quickly & Easily</span><br>
+                            <span class="color-5">Breakfast, lunch, afternoon snack, dinner & even dessert — every day!</span>
+                        </li>
+                        <li>
+                            <span class="f-bold form-subtitle color-0">We’ve Done All The Work For You!</span><br>
+                            <span class="color-5">Save time and money because we've done everything for you!</span>
+                        </li>
+                        <li>
+                            <span class="f-bold form-subtitle color-0">Cravings Eliminator System</span><br>
+                            <span class="color-5">Discover how to avoid common mistakes & do keto right!</span>
+                        </li>
+                        <li>
+                            <span class="f-bold form-subtitle color-0">Digital Access On Any Device</span><br>
+                            <span class="color-5">Delicious ideas to stop cravings in their tracks!</span>
+                        </li>
+                        <li>
+                            <span class="f-bold form-subtitle color-0">Keto-On-The-Go Manual</span><br>
+                            <span class="color-5">Stay on track — even when eating out! We show you how.</span>
+                        </li>
+                    </ul>
+
+                    <span class="montserrat f-bold form-text color-0 t-center mrg-t-lm">No Tricks, No Subscription</span>
+                    <span class="montserrat f-normal form-text color-0 t-center mrg-t-s">
+                        All plans are a one time purchase.<br>
+                        No subscriptions or monthly charges.<br>
+                        No hidden fees.
+                    </span>
+                </div>
+
+                <div class="form-min mrg-t-m">
+                    <span class="montserrat f-semibold form-title color-14 t-center">SAVE 50%</span>
+                    <span class="form-headline poppins t-center mrg-t-s f-bold">
+                        LIFETIME ACCESS<br>
+                        TO YOUR MEAL PLAN
+                    </span>
+                    <img src="./src/img/meal-plan-icon.svg" class="mrg-t-m">
+                    <div class="row-always full-container review mrg-t-lm">
+                        <span class="montserrat f-normal form-price color-6 t-center">Regular price</span>
+                        <span class="montserrat f-normal form-price color-6 t-center f-line-through">$100</span>
+                    </div>
+                    <div class="row-always full-container review mrg-t-s">
+                        <span class="montserrat f-bold form-price color-14 t-center">Flash-Sale Discount applied</span>
+                        <span class="montserrat f-bold form-price color-14 t-center">-63%</span>
+                    </div>
+                    <hr class="review mrg-t-lm">
+                    <div class="row-always full-container review mrg-t-lm">
+                        <span class="montserrat f-bold form-price color-0 t-center">Total price</span>
+                        <span class="montserrat f-bold form-price color-0 t-center">$37</span>
+                    </div>
+                    <span class="form-caption poppins t-center mrg-t-m f-light color-5 width-80">Enjoy A Lifetime Of Health Just Click Below To Get Started!</span>
+                    <button id="payment-button" class="plan-button fit-width mrg-t-m montserrat f-bold color-3">Get Your Plan</button>
+                    <div class="b-color-l-2 background-linear-fade column align-center mrg-t-m">
+                        <img class="mrg-t-m" src="src/img/payment-partners.png">
+                        <div class="row width-80 center-container mrg-t-m payment-advantages">
+                            <ul class="montserrat f-normal form-text color-5 payment-advantages">
+                                <li>Fast Secure Payment</li>
+                                <li>Instant Access</li>
+                            </ul>
+                            <ul class="montserrat f-normal form-text color-5 payment-advantages">
+                                <li>No Hidden Fees</li>
+                                <li>Lifetime Access To Your Meal Plan</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+
+        <div id="status-bar" class="hidden status-bar-container montserrat mrg-t-hg f-bold color-3 box-shadow-1">
+            <div id="status-bar-status">
+                <span class="montserrat t-center full f-bold color-3">0%</span>
+            </div>
+            <button class="montserrat f-semibold t-center color-0"id="status-bar-back">&#8592 Back</button>
+            <ul id="status-bar-line" class="status-bar f-light color-4">
+                <li>
+                    <span>height & age</span>
+                </li>
+                <li>
+                    <span>weight</span>
+                </li>
+                <li>
+                    <span>All done</span>
+                </li>
+            </ul>
+            <button class="montserrat f-semibold t-center color-0" id="status-bar-next">Next</button>
+        </div>
+        <footer class="mrg-t-h">
+            <p class="footer-text montserrat f-normal color-4 t-center">
+                *Results vary depending on your starting point, goals, and effort.<br>
+                The average participant can expect to lose 1-2 lbs/week.<br><br>
+                © 2020 KetoX. All rights reserved.
+            </p>
+        </footer>
+    </body>
+</html>

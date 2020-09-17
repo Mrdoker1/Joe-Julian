@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Payment</title>
+    <meta name="description" content="Ketox payment page" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="./src/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+<div class="background">
+    <img class="back-static" id="back1" src="./src/img/back_1.png">
+    <img class="back-static" id="back2" src="./src/img/back_2.png">
+    <img class="back-moveable" id="backMoveable1" src="./src/img/moveable_1.png">
+    <img class="back-moveable" id="backMoveable2" src="./src/img/moveable_2.png" >
+</div>
+<div class="content" id="content">
+    <a class="logo ">
+        <img class="full" src="src/img/logo.svg">
+    </a>
+    <article class="" id="q106">
+        <span class="form-headline poppins t-center mrg-t-h f-bold">
+            ENTER YOUR CARD DETAILS BELOW
+        </span>
+
+        <div id="discount-timer" class="form-min mrg-t-h box-shadow-1" style="padding: 30px">
+            <div class="row full-container full" style="align-items: center">
+                <div class="column">
+                    <img src="./src/img/stripe-logo.svg" style="width: 100px">
+                    <span class="montserrat f-normal color-5 t-center" style="font-size: 11px">Secured payment</span>
+                </div>
+                <span class="title montserrat f-semibold t-center color-0">$37.00</span>
+            </div>
+
+            <form class="full column align-center mrg-t-c" id="card_info">
+                <div class="input-field  montserrat f-semibold color-5">
+                    <label for="card_holder_name">Name on Card</label>
+                    <input type="text" id="card_holder_name" name="card_holder_name" value="" class="f-normal montserrat color-0 mrg-t-s input-payment-size" placeholder="Card holder name" required>
+                </div>
+                <div class="divided-input mrg-t-m montserrat f-semibold color-5 full">
+                    <div class="input-field ">
+                        <label for="card_number">Card number</label>
+                        <input type="text" id="card_number" name="card_number" value="" class="f-normal montserrat color-0 mrg-t-s input-payment-size" placeholder="0000 0000 0000 0000" required pattern="([\d]{4}(\s*)){4}">
+                    </div>
+                    <div class="input-field ">
+                        <label for="expiry_date">Expiry Date</label>
+                        <input type="text" id="expiry_date" name="expiry_date" value="" class="f-normal montserrat color-0 mrg-t-s input-payment-size" placeholder="MM/YY" required pattern="[\d]{2}/[\d]{2}">
+                    </div>
+                </div>
+                <div class="divided-input mrg-t-m montserrat f-semibold color-5 full">
+                    <div class="input-field ">
+                        <label for="cvv_code">CVV Code</label>
+                        <input type="number" id="cvv_code" name="cvv_code" value="" class="f-normal montserrat color-0 mrg-t-s input-payment-size" placeholder="CVV" required pattern="[\d]+">
+                    </div>
+                    <div class="input-field ">
+                        <label for="zip_code">ZIP Code</label>
+                        <input type="text" id="zip_code" name="zip_code" value="" class="f-normal montserrat color-0 mrg-t-s input-payment-size" placeholder="ZIP CODE" required pattern="">
+                    </div>
+                </div>
+
+                <button id="payment-button" class="plan-button mrg-t-m montserrat f-bold color-3">Pay</button>
+            </form>
+
+            <div class="b-color-l-2 background-linear-fade column align-center mrg-t-m">
+                <img class="mrg-t-m" src="src/img/payment-partners.png">
+                <div class="row width-80 center-container mrg-t-m payment-advantages">
+                    <ul class="montserrat f-normal form-text color-5 payment-advantages">
+                        <li>Fast Secure Payment</li>
+                        <li>Instant Access</li>
+                    </ul>
+                    <ul class="montserrat f-normal form-text color-5 payment-advantages">
+                        <li>No Hidden Fees</li>
+                        <li>Lifetime Access To Your Meal Plan</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+
+<script>
+    if(localStorage && localStorage.getItem("user-name"))
+        document.getElementById("user-name").innerHTML = localStorage.getItem("user-name").toUpperCase();
+
+    if(localStorage){
+        let data = JSON.parse(localStorage.getItem("data"));
+        console.log(data);
+        //there can be POST request with collected person data: weight, height, age etc
+    }
+</script>
+</body>
+</html>

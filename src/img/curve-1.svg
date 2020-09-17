@@ -1,0 +1,38 @@
+<svg width="496" height="211" viewBox="0 0 496 211" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .curve-day-weight{
+            font: normal 14px montserrat, sans-serif;
+            line-height: 14px;
+            fill: #6f6f6f;
+            letter-spacing: 0.02em;
+            text-align: center;
+        }
+    </style>
+    <text x="85" y="16" class="curve-day-weight">Sep 2</text>
+    <text x="380" y="112" class="curve-day-weight">Oct 2</text>
+    <text x="85" y="77" class="curve-day-weight">50 kg</text>
+    <text x="380" y="192" class="curve-day-weight">50 kg</text>
+    <path opacity="0.7" d="M235.5 98.2502C136.3 37.0502 38.5 26.0836 2 28.2502V211H494.5V161.75C449.5 166.083 334.7 159.45 235.5 98.2502Z" fill="url(#paint0_linear)"/>
+    <path d="M2 28.2502C38.5 26.0836 136.3 37.0502 235.5 98.2502C334.7 159.45 449.5 166.083 494.5 161.75" stroke="url(#paint1_linear)" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="103" cy="42" r="8.5" fill="url(#paint2_linear)" stroke="white" stroke-width="3"/>
+    <circle cx="397" cy="156" r="8.5" fill="url(#paint3_linear)" stroke="white" stroke-width="3"/>
+    <defs>
+        <linearGradient id="paint0_linear" x1="248.25" y1="28" x2="248.25" y2="211" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FF4D00" stop-opacity="0.17"/>
+            <stop offset="0.5" stop-color="#DF835C" stop-opacity="0.06"/>
+            <stop offset="1" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="paint1_linear" x1="-41.4004" y1="118.908" x2="728.312" y2="36.7122" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FB4F4F"/>
+            <stop offset="1" stop-color="#FFCD1E"/>
+        </linearGradient>
+        <linearGradient id="paint2_linear" x1="91.2375" y1="45.4866" x2="122.824" y2="44.5633" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FBA24F"/>
+            <stop offset="1" stop-color="#FF1E1E"/>
+        </linearGradient>
+        <linearGradient id="paint3_linear" x1="385.238" y1="159.487" x2="416.824" y2="158.563" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FBA24F"/>
+            <stop offset="1" stop-color="#FF1E1E"/>
+        </linearGradient>
+    </defs>
+</svg>

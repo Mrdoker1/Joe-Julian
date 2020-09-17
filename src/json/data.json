@@ -1,0 +1,95 @@
+{
+  "quiz": [
+    {
+      "id":1,
+      "title" : "What's your level of daily activity?",
+      "descr" : "(Select one only)",
+      "type" : "icon-title-text",
+      "input": 1,
+      "status": "physical activity",
+      "quest" : [
+        {"img" : "icon-q1-4.svg", "title":"Inactive", "text":"Very little daily activity"},
+        {"img" : "icon-q1-3.svg", "title":"Light", "text":"Desk job with occasional walks"},
+        {"img" : "icon-q1-1.svg", "title":"Moderate", "text":"Active day job or regular exercise"},
+        {"img" : "icon-q1-2.svg", "title":"Heavy", "text":"Intense daily activity or exercise"}
+      ]
+    },
+    {
+      "id":2,
+      "title" : "Which meats would you like to be included in your meal plan?",
+      "descr" : "(Select one only)",
+      "type" : "icon-title",
+      "input": 0,
+      "correct_input" : 5,
+      "grid" : 3,
+      "status": "meat",
+      "quest" : [
+        {"img" : "icon-q2-1.svg", "title":"Chicken" },
+        {"img" : "icon-q2-2.svg", "title":"Pork" },
+        {"img" : "icon-q2-3.svg", "title":"Beef" },
+        {"img" : "icon-q2-4.svg", "title":"Fish" },
+        {"img" : "icon-q2-5.svg", "title":"Bacon" },
+        {"img" : "icon-q2-6.svg", "title":"No Meat" }
+      ]
+    },
+    {
+      "id":3,
+      "title" : "Which vegetables would you like to be included in your meal plan?",
+      "descr" : "(Select as many as you like)",
+      "type" : "icon-title",
+      "input": 0,
+      "grid" : 3,
+      "status": "veggies",
+      "quest" : [
+        {"img" : "icon-q3-1.svg", "title":"Broccoli" },
+        {"img" : "icon-q3-2.svg", "title":"Mushrooms" },
+        {"img" : "icon-q3-3.svg", "title":"Zucchini" },
+        {"img" : "icon-q3-4.svg", "title":"Asparagus" },
+        {"img" : "icon-q3-5.svg", "title":"Cauliflower" },
+        {"img" : "icon-q3-6.svg", "title":"Avocado" }
+      ]
+    },
+    {
+      "id":4,
+      "title" : [
+        "Would you like to ",
+        {"text":"AVOID", "color": 10},
+        " any of the following?"
+      ],
+      "descr" : "(Select as many as you like)",
+      "type" : "icon-title",
+      "wrong" : true,
+      "grid" : 3,
+      "input": 0,
+      "status": "products",
+      "quest" : [
+        {"img" : "icon-q4-1.svg", "title":"Egg" },
+        {"img" : "icon-q4-2.svg", "title":"Nuts" },
+        {"img" : "icon-q4-3.svg", "title":"Cheese" },
+        {"img" : "icon-q4-4.svg", "title":"Butter" },
+        {"img" : "icon-q4-5.svg", "title":"Coconut" },
+        {"img" : "icon-q4-6.svg", "title":"Tofu" }
+      ]
+    },
+    {
+      "id":5,
+      "title" : "What are your goals for this meal plan?",
+      "descr" : "(Select as many as you like)",
+      "type" : "only-title",
+      "input": 0,
+      "grid" : 3,
+      "status": "everyday",
+      "quest" : [
+        { "title":"More\nEnergy" },
+        { "title":"Better\nSleep" },
+        { "title":"Become\nLean\n& Toned" },
+        { "title":"Increase\nStrength" },
+        { "title":"Improve Digestion" },
+        { "title":"Improve Metabolism" },
+        { "title":"Burn Fat\nFor Energy" },
+        { "title":"Help Improve Chronic Conditions" },
+        { "title":"Get Into\nKetosis\nQuickly" }
+      ]
+    }
+  ]
+}
